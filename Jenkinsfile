@@ -11,16 +11,17 @@ pipeline {
               archive 'target/*.jar'
             }
        }
+      stage('Test Maven - JUnit') {
+                    steps {
+                      sh "mvn test"
+                    }
+                    post{
+                      always{
+                        junit 'target/surefire-reports/*.xml'
+                      }
+                    }
+      }
   }
-  stage('Test Maven - JUnit') {
-              steps {
-                sh "mvn test"
-              }
-              post{
-                always{
-                  junit 'target/surefire-reports/*.xml'
-                }
-              }
-  }
+
 
 }
